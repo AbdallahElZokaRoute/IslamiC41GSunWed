@@ -1,6 +1,7 @@
 package com.route.islamiappc41gsunwed.home.model
 
 object AppConstants {
+    val CHAPTER_KEY = "chapter"
     val arabicQuranSuras = listOf(
         "الفاتحه",
         "البقرة",

@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.carousel.CarouselSnapHelper
+import com.google.android.material.carousel.FullScreenCarouselStrategy
 import com.google.android.material.carousel.HeroCarouselStrategy
 import com.google.android.material.carousel.UncontainedCarouselStrategy
 import com.route.islamiappc41gsunwed.databinding.FragmentHadethBinding
@@ -29,10 +31,12 @@ class HadethFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         layoutManager =
-            CarouselLayoutManager(HeroCarouselStrategy(), CarouselLayoutManager.HORIZONTAL)
+            CarouselLayoutManager(FullScreenCarouselStrategy(), CarouselLayoutManager.HORIZONTAL)
         layoutManager.carouselAlignment = CarouselLayoutManager.ALIGNMENT_CENTER
         binding.hadethListRecyclerView.layoutManager = layoutManager
         val list = readHadethList()
+        val carouselSnapHelper = CarouselSnapHelper()
+        carouselSnapHelper.attachToRecyclerView(binding.hadethListRecyclerView)
         adapter = HadethAdapter(list)
         binding.hadethListRecyclerView.adapter = adapter
     }
@@ -40,10 +44,9 @@ class HadethFragment : Fragment() {
     private fun readHadethList(): List<Hadeth> {
         val hadethAsString =
             requireActivity().assets.open("ahadeth.txt").bufferedReader().use { it.readText() }
-
         val hadethStringList = hadethAsString.trim().split("#")
         return hadethStringList.map {
-            val singleHadethSplited = it.split("\n")
+            val singleHadethSplited = it.trim().split("\n")
             Hadeth(
                 title = singleHadethSplited[0],
                 description = singleHadethSplited.subList(1, singleHadethSplited.size)

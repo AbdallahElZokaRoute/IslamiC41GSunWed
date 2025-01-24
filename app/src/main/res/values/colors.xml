@@ -5,4 +5,5 @@
     <color name="color_gold">#E2BE7F</color>
     <color name="color_gold_dark">#BAA176</color>
     <color name="active_color_selector">#99141414</color>
+    <color name="black2">#202020</color>
 </resources>
